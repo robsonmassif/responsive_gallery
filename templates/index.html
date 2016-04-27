@@ -3,7 +3,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
-
+  <script src="https://apis.google.com/js/client.js?onload=init">
+</script>
   <title>Scaffold</title>
 
   <link rel="import" href="bower_components/polymer/polymer.html">
@@ -16,6 +17,22 @@
   <link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
   <link rel="import" href="bower_components/iron-icon/iron-icon.html">
   <link rel="import" href="bower_components/paper-input/paper-textarea.html">
+
+
+  <style>
+    body {
+        margin: 40px auto;
+        max-width: 650px;
+        line-height: 1.6;
+        font-size: 18px;
+        color: #444;
+        padding: 0 10px;
+        font-family: Helvetica, Arial, Sans-Serif;
+    }
+    h1,h2,h3 {
+      line-height: 1.2;
+    }
+  </style>
 
 </head>
 
@@ -52,18 +69,14 @@
   <dom-module id="test-content">
     <template>
       <section id="buttons">
-        <paper-button on-click="openDialogLong">Long Dialog</paper-button>
-        <paper-button on-click="openDialogShort">Short Dialog</paper-button>
+        <paper-button on-click="openDialog">Short Dialog</paper-button>
       </section>
-      <table class="tftable" border="1">
-        <tr><th>Header 1</th><th>Header 2</th><th>Header 3</th><th>Header 4</th><th>Header 5</th></tr>
-        <tr><td>Row:1 Cell:1</td><td>Row:1 Cell:2</td><td>Row:1 Cell:3</td><td>Row:1 Cell:4</td><td>Row:1 Cell:5</td></tr>
-        <tr><td>Row:2 Cell:1</td><td>Row:2 Cell:2</td><td>Row:2 Cell:3</td><td>Row:2 Cell:4</td><td>Row:2 Cell:5</td></tr>
-        <tr><td>Row:3 Cell:1</td><td>Row:3 Cell:2</td><td>Row:3 Cell:3</td><td>Row:3 Cell:4</td><td>Row:3 Cell:5</td></tr>
-        <tr><td>Row:4 Cell:1</td><td>Row:4 Cell:2</td><td>Row:4 Cell:3</td><td>Row:4 Cell:4</td><td>Row:4 Cell:5</td></tr>
-        <tr><td>Row:5 Cell:1</td><td>Row:5 Cell:2</td><td>Row:5 Cell:3</td><td>Row:5 Cell:4</td><td>Row:5 Cell:5</td></tr>
-        <tr><td>Row:6 Cell:1</td><td>Row:6 Cell:2</td><td>Row:6 Cell:3</td><td>Row:6 Cell:4</td><td>Row:6 Cell:5</td></tr>
-      </table>
+      <h1>
+          Title
+      </h1>
+      <p>
+          Content is going to be really great on this site!
+      </p>
 
       <paper-dialog id="testDialog">
         <h1>Dialog With lots of content</h1>
@@ -73,27 +86,32 @@
         <paper-button dialog-dismiss>CANCEL</paper-button>
       </paper-dialog>
 
-
     </template>
     <script>
-        (function(){
+    (function(){
       Polymer({
         is: 'test-content',
         ready: function(){
           console.log("ready, ", Polymer.version);
         },
-        openDialogShort: function(){
+        openDialog: function(){
           this.$.testDialog.open();
           this.$.inputContent.value = "not very much content";
         },
-        openDialogLong: function(){
-          this.$.testDialog.open();
-          this.$.inputContent.value = "([-0.1175, -0.115, -0.1125, -0.11, -0.1075, -0.105, -0.1025, -0.1, -0.0975000000000001, -0.0950000000000001, -0.0925000000000001, -0.0900000000000001, -0.0875000000000001, -0.085, -0.0825, -0.08, -0.0775, -0.075, -0.0725, -0.07, -0.0675, -0.065, -0.0625, -0.06, -0.0575, -0.055, -0.0525, -0.05, -0.0475, -0.045, -0.0425, -0.04, -0.039, -0.038, -0.037, -0.036, -0.035, -0.034, -0.033, -0.032, -0.031, -0.03, -0.029, -0.028, -0.027, -0.026, -0.025, -0.024, -0.023, -0.022, -0.021, -0.02, -0.0195, -0.019, -0.0185, -0.018, -0.0175, -0.017, -0.0165, -0.016, -0.0155, -0.015, -0.0145, -0.014, -0.0135, -0.013, -0.0125, -0.012, -0.0115, -0.011, -0.0105, -0.00999999999999999, -0.00949999999999999, -0.00899999999999999, -0.00849999999999999, -0.00799999999999999, -0.00749999999999999, -0.00699999999999999, -0.00649999999999999, -0.00599999999999999, -0.00549999999999999, -0.00499999999999999, -0.00449999999999999, -0.00399999999999999, -0.00349999999999999, -0.00299999999999999, -0.00249999999999999, -0.00199999999999999, -0.00149999999999999, -9.99999999999995E-4, -4.99999999999995E-4, 4.33680868994202E-18], [76.823951029304 ns, 78.8356806636431 ns, 76.7978430583275 ns, 79.0078787067691 ns, 77.8735405789825 ns, 77.9511714403388 ns, 77.1189657707318 ns, 79.0817670996733 ns, 79.4194555888479 ns, 84.5073826047015 ns, 79.4981468713676 ns, 81.6288779542645 ns, 82.429554907223 ns, 84.7861935085675 ns, 83.7198812132735 ns, 84.9302256879315 ns, 85.5192909664944 ns, 90.3673183435841 ns, 92.0580289114109 ns, 89.0589123749336 ns, 98.2096565474107 ns, 96.6009975586282 ns, 104.459284242474 ns, 107.101728165906 ns, 111.922020948419 ns, 122.572422011619 ns, 121.472856855585 ns, 129.1896574607 ns, 136.649189527868 ns, 142.7721012852 ns, 156.392013976739 ns, 163.326923129191 ns, 174.51557065367 ns, 176.566545092947 ns, 186.780886672377 ns, 194.465359790356 ns, 196.373459727112 ns, 200.455591673097 ns, 199.971686280178 ns, 227.019165181139 ns, 221.871739376254 ns, 239.180087955827 ns, 253.437680812255 ns, 249.494536199669 ns, 258.271378375314 ns, 277.582339611261 ns, 292.192603460575 ns, 325.961578703415 ns, 328.37694372497 ns, 357.29170925367 ns, 359.871540879394 ns, 389.3860438564 ns, 420.506021157081 ns, 408.032182494229 ns, 446.43056469788 ns, 459.229851631737 ns, 472.051796825245 ns, 486.841985087697 ns, 516.488611521366 ns, 530.544422318611 ns, 596.409763856987 ns, 618.101822094037 ns, 619.752723753074 ns, 619.747827714218 ns, 654.710056942348 ns, 682.158557915657 ns, 752.66299810436 ns, 794.166473326562 ns, 769.703623644506 ns, 854.554659808841 ns, 956.492831876727 ns, 939.597407775205 ns, 1023.33431368626 ns, 1059.38717399402 ns, 1188.84128396815 ns, 1162.32837648089 ns, 1251.42710637438 ns, 1477.43029564101 ns, 1522.60856019716 ns, 1675.38470840057 ns, 1842.90248528451 ns, 2096.43852751129 ns, 2413.03807371831 ns, 2222.65878197139 ns, 2635.67615288763 ns, 2859.1139656715 ns, 3247.53195427376 ns, 3410.71193657984 ns, 3357.53857437511 ns, 3837.02928993146 ns, 4291.20794896869 ns, 5124.26430951624 ns])";
-        }
       });
     })();
     </script>
   </dom-module>
+
+    <script>
+      function init() {
+        var ROOT = '//' + window.location.host + '/_ah/api';
+        gapi.client.load('gallery', 'v1', function() {
+          console.log("api loaded or something");
+        }, ROOT);
+      }
+    </script>
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
 
 </body>
 </html>
