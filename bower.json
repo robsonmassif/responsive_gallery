@@ -1,0 +1,22 @@
+{
+  "name": "resp-gallery",
+  "homepage": "https://github.com/robsonmassif/responsive_gallery",
+  "authors": [
+    "robson.massif@gmail.com"
+  ],
+  "description": "Trying to make a responsive gallery app",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "iron-elements": "PolymerElements/iron-elements#1.x",
+    "paper-elements": "PolymerElements/paper-elements#1.x",
+    "polymer": "Polymer/polymer#1.4.x"
+  }
+}

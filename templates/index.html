@@ -6,17 +6,17 @@
 
   <title>Scaffold</title>
 
-  <base href="http://polygit.org/polymer+:master/components/">
-  <script src="webcomponentsjs/webcomponents-lite.min.js"></script>
-  <link rel="import" href="paper-button/paper-button.html">
-  <link rel="import" href="paper-drawer-panel/paper-drawer-panel.html">
-  <link rel="import" href="paper-header-panel/paper-header-panel.html">
-  <link rel="import" href="paper-toolbar/paper-toolbar.html">
-  <link rel="import" href="paper-dialog/paper-dialog.html">
-  <link rel="import" href="paper-dialog-scrollable/paper-dialog-scrollable.html">
-  <link rel="import" href="iron-icon/iron-icon.html">
-  <link rel="import" href="paper-input/paper-textarea.html">
-  <link href="polymer/polymer.html" rel="import">
+  <link rel="import" href="bower_components/polymer/polymer.html">
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="bower_components/paper-button/paper-button.html">
+  <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
+  <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+  <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+  <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+  <link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+  <link rel="import" href="bower_components/iron-icon/iron-icon.html">
+  <link rel="import" href="bower_components/paper-input/paper-textarea.html">
+
 </head>
 
 <body>
@@ -24,7 +24,7 @@
 
   <dom-module id="test-app">
     <template>
-      <paper-drawer-panel>
+      <paper-drawer-panel force-narrow>
         <div drawer>
           Menu
         </div>
