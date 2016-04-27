@@ -21,14 +21,15 @@
 
   <style>
     body {
-        margin: 40px auto;
-        max-width: 650px;
-        line-height: 1.6;
-        font-size: 18px;
-        color: #444;
-        padding: 0 10px;
-        font-family: Helvetica, Arial, Sans-Serif;
+      margin: 40px auto;
+      max-width: 650px;
+      line-height: 1.6;
+      font-size: 18px;
+      color: #444;
+      padding: 0 10px;
+      font-family: Helvetica, Arial, Sans-Serif;
     }
+
     h1,h2,h3 {
       line-height: 1.2;
     }
@@ -38,6 +39,8 @@
 
 <body>
   <test-app></test-app>
+</body>
+</html>
 
   <dom-module id="test-app">
     <template>
@@ -57,11 +60,11 @@
       </paper-drawer-panel>
     </template>
     <script>
-        (function(){
-      Polymer({
-        is: 'test-app'
-      });
-    })();
+      (function() {
+        Polymer({
+          is: 'test-app'
+        });
+      })();
     </script>
   </dom-module>
 
@@ -79,10 +82,8 @@
       </p>
 
       <paper-dialog id="testDialog">
-        <h1>Dialog With lots of content</h1>
-        <paper-dialog-scrollable>
-          <paper-textarea id="inputContent" label="Foo"></paper-textarea>
-        </paper-dialog-scrollable>
+        <h1>Dialog with lots of content</h1>
+        <p id="apiContent"></p>
         <paper-button dialog-dismiss>CANCEL</paper-button>
       </paper-dialog>
 
@@ -91,12 +92,28 @@
     (function(){
       Polymer({
         is: 'test-content',
-        ready: function(){
+        ready: function() {
           console.log("ready, ", Polymer.version);
+          var ROOT = '//' + window.location.host + '/_ah/api';
+          gapi.client.load('gallery', 'v1', function() {
+            console.log("api loaded or something");
+            }, ROOT);
         },
-        openDialog: function(){
-          this.$.testDialog.open();
-          this.$.inputContent.value = "not very much content";
+
+        openDialog: function() {
+          content = this.$.apiContent;
+          dialog = this.$.testDialog;
+          gapi.client.gallery.greetings.listGreeting().execute(
+            function(resp) {
+              if (!resp.code) {
+                resp.items = resp.items || [];
+                for (var i = 0; i < resp.items.length; i++) {
+                  console.log(resp.items[i]);
+                  content.innerText = resp.items[0].message;
+                  dialog.open();
+                }
+              }
+            });
         },
       });
     })();
@@ -105,13 +122,10 @@
 
     <script>
       function init() {
-        var ROOT = '//' + window.location.host + '/_ah/api';
-        gapi.client.load('gallery', 'v1', function() {
-          console.log("api loaded or something");
-        }, ROOT);
+//        var ROOT = '//' + window.location.host + '/_ah/api';
+//        gapi.client.load('gallery', 'v1', function() {
+//          console.log("api loaded or something");
+//        }, ROOT);
       }
     </script>
-    <script src="https://apis.google.com/js/client.js?onload=init"></script>
 
-</body>
-</html>
