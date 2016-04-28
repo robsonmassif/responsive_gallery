@@ -1,4 +1,4 @@
 
 *.pyc
 bower_components/
-
+script*

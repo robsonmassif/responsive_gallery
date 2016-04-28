@@ -103,15 +103,12 @@
         openDialog: function() {
           content = this.$.apiContent;
           dialog = this.$.testDialog;
-          gapi.client.gallery.greetings.listGreeting().execute(
+          gapi.client.gallery.messages.sayHello().execute(
             function(resp) {
               if (!resp.code) {
-                resp.items = resp.items || [];
-                for (var i = 0; i < resp.items.length; i++) {
-                  console.log(resp.items[i]);
-                  content.innerText = resp.items[0].message;
-                  dialog.open();
-                }
+                console.log("response: ", resp);
+                content.innerText = resp.message;
+                dialog.open();
               }
             });
         },
