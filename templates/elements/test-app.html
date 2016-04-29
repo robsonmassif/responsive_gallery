@@ -1,0 +1,78 @@
+<dom-module id="test-app">
+    <style>
+    paper-header-panel {
+      margin: 40px auto;
+      max-width: 650px;
+      line-height: 1.6;
+      font-size: 18px;
+      color: #444;
+      padding: 00 0px;
+      font-family: Helvetica, Arial, Sans-Serif;
+      border-style: solid;
+      border-width: 5px;
+    }
+
+    .paper-header {
+      height: 60px;
+      font-size: 20px;
+      line-height: 60px;
+      padding: 0 10px;
+      color: white;
+      transition: height;
+      background-color: #03a9f4;
+    }
+
+    .content {
+      padding: 10 10px;
+    }
+
+    h1,h2,h3 {
+      line-height: 1.2;
+    }
+  </style>
+  <template>
+    <paper-header-panel >
+      <div class="paper-header">
+          Gallery Demo
+      </div>
+      <div class="content">
+        Content is going to be really great on this site!
+      <section id="buttons">
+        <paper-button raised on-click="openDialog">API call</paper-button>
+      </section>
+      </div>
+    </paper-header-panel>
+    <paper-dialog id="testDialog">
+      <h1>Dialog with lots of content</h1>
+      <p id="apiContent"></p>
+      <paper-button dialog-dismiss>CANCEL</paper-button>
+    </paper-dialog>
+
+  </template>
+  <script>
+  (function(){
+    Polymer({
+      is: 'test-app',
+      ready: function() {
+        console.log("ready, ", Polymer.version);
+      },
+
+      openDialog: function() {
+        content = this.$.apiContent;
+        dialog = this.$.testDialog;
+        gapi.client.gallery.messages.sayHello().execute(
+          function(resp) {
+            if (!resp.code) {
+              console.log("response: ", resp);
+              content.innerText = resp.message;
+              dialog.open();
+            }
+          });
+      },
+    });
+  })();
+  </script>
+</dom-module>
+
+
+

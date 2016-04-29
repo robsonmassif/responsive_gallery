@@ -1,128 +1,38 @@
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
-  <script src="https://apis.google.com/js/client.js?onload=init">
-</script>
-  <title>Scaffold</title>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <title>Scaffold</title>
 
-  <link rel="import" href="bower_components/polymer/polymer.html">
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-  <link rel="import" href="bower_components/paper-button/paper-button.html">
-  <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
-  <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
-  <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
-  <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
-  <link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
-  <link rel="import" href="bower_components/iron-icon/iron-icon.html">
-  <link rel="import" href="bower_components/paper-input/paper-textarea.html">
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+    <link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
+    <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
+    <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+    <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+    <link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+    <link rel="import" href="bower_components/iron-icon/iron-icon.html">
+    <link rel="import" href="bower_components/paper-input/paper-textarea.html">
 
+    <link rel="import" href="elements/test-app.html">
 
-  <style>
-    body {
-      margin: 40px auto;
-      max-width: 650px;
-      line-height: 1.6;
-      font-size: 18px;
-      color: #444;
-      padding: 0 10px;
-      font-family: Helvetica, Arial, Sans-Serif;
-    }
-
-    h1,h2,h3 {
-      line-height: 1.2;
-    }
-  </style>
-
-</head>
-
-<body>
-  <test-app></test-app>
-</body>
-</html>
-
-  <dom-module id="test-app">
-    <template>
-      <paper-drawer-panel force-narrow>
-        <div drawer>
-          Menu
-        </div>
-        <paper-header-panel main mode="standard">
-          <paper-toolbar>
-            <button tabindex="1" id="toggle" paper-drawer-toggle>
-            </button>
-            <div>Minimum Working Example</div>
-          </paper-toolbar>
-          <div id="content">
-            <test-content></test-content>
-          </div>
-      </paper-drawer-panel>
-    </template>
-    <script>
-      (function() {
-        Polymer({
-          is: 'test-app'
-        });
-      })();
-    </script>
-  </dom-module>
-
-
-  <dom-module id="test-content">
-    <template>
-      <section id="buttons">
-        <paper-button on-click="openDialog">Short Dialog</paper-button>
-      </section>
-      <h1>
-          Title
-      </h1>
-      <p>
-          Content is going to be really great on this site!
-      </p>
-
-      <paper-dialog id="testDialog">
-        <h1>Dialog with lots of content</h1>
-        <p id="apiContent"></p>
-        <paper-button dialog-dismiss>CANCEL</paper-button>
-      </paper-dialog>
-
-    </template>
-    <script>
-    (function(){
-      Polymer({
-        is: 'test-content',
-        ready: function() {
-          console.log("ready, ", Polymer.version);
-          var ROOT = '//' + window.location.host + '/_ah/api';
-          gapi.client.load('gallery', 'v1', function() {
-            console.log("api loaded or something");
-            }, ROOT);
-        },
-
-        openDialog: function() {
-          content = this.$.apiContent;
-          dialog = this.$.testDialog;
-          gapi.client.gallery.messages.sayHello().execute(
-            function(resp) {
-              if (!resp.code) {
-                console.log("response: ", resp);
-                content.innerText = resp.message;
-                dialog.open();
-              }
-            });
-        },
-      });
-    })();
-    </script>
-  </dom-module>
 
     <script>
+      var ROOT = '//' + window.location.host + '/_ah/api';
       function init() {
-//        var ROOT = '//' + window.location.host + '/_ah/api';
-//        gapi.client.load('gallery', 'v1', function() {
-//          console.log("api loaded or something");
-//        }, ROOT);
+        console.log("in INIT");
+        gapi.client.load('gallery', 'v1', function() {
+          console.log("api loaded or something", gapi);
+        }, ROOT);
       }
     </script>
+  </head>
+  <script src="https://apis.google.com/js/client.js?onload=init"></script>
+
+  <body>
+    <test-app></test-app>
+  </body>
+</html>
 

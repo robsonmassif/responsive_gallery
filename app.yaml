@@ -18,6 +18,8 @@ handlers:
 # and HTML.
 - url: /bower_components
   static_dir: bower_components/
+- url: /elements
+  static_dir: templates/elements/
 - url: /
   static_files: templates/index.html
   upload: templates/index\.html
