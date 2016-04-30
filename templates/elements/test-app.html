@@ -1,5 +1,5 @@
 <dom-module id="test-app">
-    <style>
+  <style>
     paper-header-panel {
       margin: 40px auto;
       max-width: 650px;
@@ -37,11 +37,16 @@
       </div>
       <div class="content">
         Content is going to be really great on this site!
+      <template is="dom-repeat" items="{{collection}}">
+        <art-piece label="{{item}}"></art-piece>
+      </template>
       <section id="buttons">
         <paper-button raised on-click="openDialog">API call</paper-button>
       </section>
       </div>
     </paper-header-panel>
+
+
     <paper-dialog id="testDialog">
       <h1>Dialog with lots of content</h1>
       <p id="apiContent"></p>
@@ -53,11 +58,19 @@
   (function(){
     Polymer({
       is: 'test-app',
+      properties: {
+        appliedLabel: {
+          type: String
+        }
+      },
       ready: function() {
-        console.log("ready, ", Polymer.version);
+        this.appliedLabel = "testerati";
+        this.collection = ["foo", "bar", "bannana"];
+        console.log("ready, ", Polymer.version, collection);
       },
 
       openDialog: function() {
+        this.appliedLabel = "Changed";
         content = this.$.apiContent;
         dialog = this.$.testDialog;
         gapi.client.gallery.messages.sayHello().execute(

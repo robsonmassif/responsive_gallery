@@ -1,0 +1,47 @@
+<dom-module id="art-piece">
+  <style>
+
+    @font-face {
+      font-family: americanScribe;
+      src: url(American-Scribe_3355.ttf);
+    }
+    .details {
+      font-family: americanScribe, script;
+      font-size: 24px;
+    }
+
+    #framez {
+      width: 100px;
+      height: 100px;
+      border-style: solid;
+      border-width: 5px;
+    }
+  </style>
+  <template>
+    <div id="framez">
+
+    </div>
+    <div class="details">
+      {{label}}
+    </div>
+
+  </template>
+  <script>
+  (function(){
+    Polymer({
+      is: 'art-piece',
+      properties: {
+        label: {
+          type: String
+        }
+      },
+      ready: function() {
+        console.log("Art Piece ready", this.label);
+      }
+    });
+  })();
+  </script>
+</dom-module>
+
+
+
