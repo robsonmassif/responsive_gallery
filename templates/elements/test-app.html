@@ -33,16 +33,15 @@
   <template>
     <paper-header-panel >
       <div class="paper-header">
-          Gallery Demo
+        Gallery Demo
       </div>
       <div class="content">
-        Content is going to be really great on this site!
+        <paper-button raised on-click="openDialog">API call</paper-button>
+        <paper-button raised on-click="getLabels">Load Gallery via API</paper-button>
       <template is="dom-repeat" items="{{collection}}">
         <art-piece label="{{item}}"></art-piece>
       </template>
-      <section id="buttons">
-        <paper-button raised on-click="openDialog">API call</paper-button>
-      </section>
+
       </div>
     </paper-header-panel>
 
@@ -65,8 +64,8 @@
       },
       ready: function() {
         this.appliedLabel = "testerati";
-        this.collection = ["foo", "bar", "bannana"];
-        console.log("ready, ", Polymer.version, collection);
+        this.collection = [];
+        console.log("ready, ", Polymer.version, this.collection);
       },
 
       openDialog: function() {
@@ -82,6 +81,19 @@
             }
           });
       },
+
+      getLabels: function() {
+        that = this;
+        gapi.client.gallery.fill.labels().execute(
+          function(resp) {
+            if (!resp.code) {
+              resp.items = resp.items || [];
+              for (var i = 0; i < resp.items.length; i++) {
+                that.push('collection', resp.items[i].message);
+              }
+            }
+          });
+      }
     });
   })();
   </script>
