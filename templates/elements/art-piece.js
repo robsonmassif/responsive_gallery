@@ -4,6 +4,9 @@ Polymer({
   properties: {
     label: {
       type: String
+    },
+    art: {
+      type: Number
     }
   },
   ready: function() {
