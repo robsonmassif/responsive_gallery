@@ -1,4 +1,7 @@
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
 <dom-module id="test-app">
+  <style is="custom-style" include="iron-flex iron-flex-alignment"></style>
   <style>
     paper-header-panel {
       margin: 40px auto;
@@ -36,12 +39,17 @@
         Gallery Demo
       </div>
       <div class="content">
-        <paper-button raised on-click="openDialog">API call</paper-button>
-        <paper-button raised on-click="getLabels">Load Gallery via API</paper-button>
-      <template is="dom-repeat" items="{{collection}}">
-        <art-piece label="{{item}}"></art-piece>
-      </template>
-
+        <div class="container">
+          <paper-button raised on-click="openDialog">API call</paper-button>
+          <paper-button raised on-click="getLabels">Load Gallery via API</paper-button>
+        </div>
+        <div class="layout horizontal wrap">
+          <template is="dom-repeat" items="{{collection}}">
+            <div>
+              <art-piece art="{{item.num}}" label="{{item.name}}"></art-piece>
+            </div>
+          </template>
+        </div>
       </div>
     </paper-header-panel>
 

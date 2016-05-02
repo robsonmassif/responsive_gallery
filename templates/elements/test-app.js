@@ -20,7 +20,7 @@ Polymer({
       function(resp) {
         if (!resp.code) {
           console.log("response: ", resp);
-          content.innerText = resp.message;
+          content.innerText = resp.label;
           dialog.open();
         }
       });
@@ -33,7 +33,7 @@ Polymer({
         if (!resp.code) {
           resp.items = resp.items || [];
           for (var i = 0; i < resp.items.length; i++) {
-            that.push('collection', resp.items[i].message);
+            that.push('collection', {name: resp.items[i].label, num: resp.items[i].art});
           }
         }
       });
