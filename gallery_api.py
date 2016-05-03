@@ -1,18 +1,37 @@
 
 from google.appengine.ext import ndb
 
-
-class Piece(ndb.Model):
-    '''
-    An avant guard piece of art that is just a single interger
-    Pretty cool, right?
-    '''
-    label = ndb.StringProperty()
-    art = ndb.IntegerProperty()
+class Person(ndb.Model):
+  name = ndb.StringProperty()
+  age = ndb.IntegerProperty()
 
 
+p = Person(name='Arthur Dent', age=42)
+k = p.put()
 
-#The Stuff that follows is just API things
+test_query = Person.query()
+
+print test_query.count()
+for person in test_query:
+    print person.name
+
+#
+# class Piece(ndb.Model):
+#     '''
+#     An avant guard piece of art that is just a single integer
+#     Described by a label that is just a string
+#     Pretty cool, right?
+#     '''
+#     label = ndb.StringProperty()
+#     art = ndb.IntegerProperty()
+#
+# AN_ART = Piece(label="R. Starr", art=48)
+#
+# AN_ART.put()
+# #
+# # print("<<><><><><", AN_ART.query())
+# #
+# # #The Stuff that follows is just API things
 
 import endpoints
 from protorpc import messages
@@ -38,7 +57,6 @@ hello_grt = Greeting(label="Hi World", art=6)
 
 local_labels = ["A. Art", "B. Free", "C. Saw", "D. Lite"]
 
-#STORED_LABELS = LabelCollection(items=[Greeting(label=title) for title in local_labels])
 STORED_LABELS = LabelCollection(items=[Greeting(label=title, art=random.randint(0, 99)) for title in local_labels])
 
 
