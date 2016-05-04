@@ -14,7 +14,8 @@
     <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
     <link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
     <link rel="import" href="bower_components/iron-icon/iron-icon.html">
-    <link rel="import" href="bower_components/paper-input/paper-textarea.html">
+    <link rel="import" href="bower_components/iron-form/iron-form.html">
+    <link rel="import" href="bower_components/paper-input/paper-input.html">
 
     <link rel="import" href="elements/test-app.html">
     <link rel="import" href="elements/art-piece.html">
@@ -23,9 +24,12 @@
 
     <script>
       var ROOT = '//' + window.location.host + '/_ah/api';
+      //var app = document.getElementById("theApp");
+
       function init() {
         console.log("in INIT");
         gapi.client.load('gallery', 'v1', function() {
+          document.getElementById("theApp").getLabels();
           console.log("api loaded or something", gapi);
         }, ROOT);
       }
@@ -34,7 +38,7 @@
   <script src="https://apis.google.com/js/client.js?onload=init"></script>
 
   <body>
-    <test-app></test-app>
+    <test-app id="theApp"></test-app>
   </body>
 </html>
 

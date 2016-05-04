@@ -13,17 +13,8 @@ Polymer({
   },
 
   openDialog: function() {
-    this.appliedLabel = "Changed";
-    content = this.$.apiContent;
     dialog = this.$.testDialog;
-    gapi.client.gallery.messages.sayHello().execute(
-      function(resp) {
-        if (!resp.code) {
-          console.log("response: ", resp);
-          content.innerText = resp.label;
-          dialog.open();
-        }
-      });
+    dialog.open();
   },
 
   getLabels: function() {
@@ -35,6 +26,20 @@ Polymer({
           for (var i = 0; i < resp.items.length; i++) {
             that.push('collection', {name: resp.items[i].label, num: resp.items[i].art});
           }
+        }
+      });
+  },
+
+  submitForm: function() {
+    that = this;
+    new_art = this.$.newArt.value;
+    new_label = this.$.newLabel.value;
+    console.log(new_art, new_label);
+    gapi.client.gallery.new.composition({'art': new_art, 'label': new_label}).execute(
+      function(resp) {
+        if (!resp.code) {
+            that.push('collection', {name: resp.label, num: resp.art});
+            that.$.testDialog.close();
         }
       });
   }

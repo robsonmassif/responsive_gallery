@@ -40,8 +40,8 @@
       </div>
       <div class="content">
         <div class="container">
-          <paper-button raised on-click="openDialog">API call</paper-button>
-          <paper-button raised on-click="getLabels">Load Gallery via API</paper-button>
+          <paper-button raised on-click="openDialog">Add Entry</paper-button>
+          <paper-button raised on-click="getLabels">Load Gallery</paper-button>
         </div>
         <div class="layout horizontal wrap">
           <template is="dom-repeat" items="{{collection}}">
@@ -55,9 +55,11 @@
 
 
     <paper-dialog id="testDialog">
-      <h1>Dialog with lots of content</h1>
-      <p id="apiContent"></p>
+      <h1>Create an Entry</h1>
+      <paper-input id="newArt" label="Number" type="number"></paper-input>
+      <paper-input id="newLabel" label="Label"></paper-input>
       <paper-button dialog-dismiss>CANCEL</paper-button>
+      <paper-button on-click="submitForm">Submit</paper-button>
     </paper-dialog>
 
   </template>

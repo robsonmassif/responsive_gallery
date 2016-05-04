@@ -1,37 +1,26 @@
 
 from google.appengine.ext import ndb
 
-class Person(ndb.Model):
-  name = ndb.StringProperty()
-  age = ndb.IntegerProperty()
+
+class Composition(ndb.Model):
+  '''
+  An avant guard piece of art that is just a single integer
+  Described by a label that is just a string
+  Pretty cool, right?
+  '''
+  label = ndb.StringProperty()
+  art = ndb.IntegerProperty()
 
 
-p = Person(name='Arthur Dent', age=42)
-k = p.put()
-
-test_query = Person.query()
-
-print test_query.count()
-for person in test_query:
-    print person.name
-
+# ex = Composition(label="R. Starr", art=48)
+# k = ex.put()
 #
-# class Piece(ndb.Model):
-#     '''
-#     An avant guard piece of art that is just a single integer
-#     Described by a label that is just a string
-#     Pretty cool, right?
-#     '''
-#     label = ndb.StringProperty()
-#     art = ndb.IntegerProperty()
-#
-# AN_ART = Piece(label="R. Starr", art=48)
-#
-# AN_ART.put()
-# #
-# # print("<<><><><><", AN_ART.query())
-# #
-# # #The Stuff that follows is just API things
+# test_query = Composition.query()
+
+# print test_query.count()
+# for item in test_query:
+#   print item.key.delete()
+
 
 import endpoints
 from protorpc import messages
@@ -55,14 +44,25 @@ class LabelCollection(messages.Message):
 
 hello_grt = Greeting(label="Hi World", art=6)
 
-local_labels = ["A. Art", "B. Free", "C. Saw", "D. Lite"]
+# local_labels = ["A. Art", "B. Free", "C. Saw", "D. Lite"]
+def collect_query():
+  '''
+  Loads a LabelCollection with the contents of the Datastore kind
 
-STORED_LABELS = LabelCollection(items=[Greeting(label=title, art=random.randint(0, 99)) for title in local_labels])
+  :return: LabelCollection of items in the database entry
+  '''
+  test_query = Composition.query()
+  return LabelCollection(items=[Greeting(label=ent.label, art=ent.art) for ent in test_query])
 
 
 @endpoints.api(name='gallery', version='v1')
 class GalleryApi(remote.Service):
   """Helloworld API v1."""
+
+  ID_RESOURCE = endpoints.ResourceContainer(
+          message_types.VoidMessage,
+          art=messages.IntegerField(1, variant=messages.Variant.INT32),
+          label=messages.StringField(2, variant=messages.Variant.STRING))
 
   @endpoints.method(message_types.VoidMessage, Greeting,
                     path='gallery', http_method='GET',
@@ -75,8 +75,22 @@ class GalleryApi(remote.Service):
                     path='labels', http_method='GET',
                     name='fill.labels')
   def label_list(self, unused_request):
-    return STORED_LABELS
+    return collect_query()
 
+  @endpoints.method(ID_RESOURCE, Greeting,
+                    path='new_art/{art,label}', http_method='GET',
+                    name='new.composition')
+  def new_composition(self, request):
+    print("request", request.art, request.label)
+    created = Greeting(art=request.art, label=request.label)
+    new_ent = Composition(art=request.art, label=request.label)
+    new_ent.put()
+
+    # test_query = Composition.query()
+    # print test_query.count()
+    # for item in test_query:
+    #   print item.label, item.art
+    return created
 
 
   ID_RESOURCE = endpoints.ResourceContainer(
