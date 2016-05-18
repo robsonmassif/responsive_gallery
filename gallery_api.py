@@ -11,23 +11,10 @@ class Composition(ndb.Model):
   label = ndb.StringProperty()
   art = ndb.IntegerProperty()
 
-
-# ex = Composition(label="R. Starr", art=48)
-# k = ex.put()
-#
-# test_query = Composition.query()
-
-# print test_query.count()
-# for item in test_query:
-#   print item.key.delete()
-
-
 import endpoints
 from protorpc import messages
 from protorpc import message_types
 from protorpc import remote
-
-import random
 
 package = 'Gallery'
 
@@ -44,7 +31,7 @@ class LabelCollection(messages.Message):
 
 hello_grt = Greeting(label="Hi World", art=6)
 
-# local_labels = ["A. Art", "B. Free", "C. Saw", "D. Lite"]
+
 def collect_query():
   '''
   Loads a LabelCollection with the contents of the Datastore kind
@@ -70,7 +57,6 @@ class GalleryApi(remote.Service):
   def greetings_list(self, unused_request):
     return hello_grt
 
-
   @endpoints.method(message_types.VoidMessage, LabelCollection,
                     path='labels', http_method='GET',
                     name='fill.labels')
@@ -85,17 +71,6 @@ class GalleryApi(remote.Service):
     created = Greeting(art=request.art, label=request.label)
     new_ent = Composition(art=request.art, label=request.label)
     new_ent.put()
-
-    # test_query = Composition.query()
-    # print test_query.count()
-    # for item in test_query:
-    #   print item.label, item.art
     return created
-
-
-  ID_RESOURCE = endpoints.ResourceContainer(
-      message_types.VoidMessage,
-      id=messages.IntegerField(1, variant=messages.Variant.INT32))
-
 
 APPLICATION = endpoints.api_server([GalleryApi])
