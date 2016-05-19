@@ -7,9 +7,7 @@ Polymer({
     }
   },
   ready: function() {
-    this.appliedLabel = "testerati";
     this.collection = [];
-    console.log("ready, ", Polymer.version, this.collection);
   },
 
   openDialog: function() {
