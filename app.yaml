@@ -19,10 +19,10 @@ handlers:
 - url: /bower_components
   static_dir: bower_components/
 - url: /elements
-  static_dir: font-end/elements/
+  static_dir: front-end/elements/
 - url: /
-  static_files: font-end/index.html
-  upload: font-end/index\.html
+  static_files: front-end/index.html
+  upload: front-end/index\.html
 
 # This handler routes requests to your APIs to your Endpoints code.
 # See https://developers.google.com/appengine/docs/python/endpoints/
